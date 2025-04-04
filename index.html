@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Collection System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Feedback Collection System</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#feedback">Feedback</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>We Value Your Feedback</h2>
+            <p>Help us improve by sharing your thoughts and experiences.</p>
+            <a href="#feedback" class="btn">Share Feedback</a>
+        </div>
+    </section>
+
+    <section id="feedback" class="feedback-section">
+        <div class="container">
+            <h2>Submit Your Feedback</h2>
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="name">Name <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="Your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category <span class="required">*</span></label>
+                    <select id="category" name="category" required>
+                        <option value="">Select a category</option>
+                        <option value="suggestion">Suggestion</option>
+                        <option value="complaint">Complaint</option>
+                        <option value="question">Question</option>
+                        <option value="praise">Praise</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Feedback <span class="required">*</span></label>
+                    <textarea id="message" name="message" rows="5" placeholder="Please enter your feedback here..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating <span class="required">*</span></label>
+                    <div class="rating-container">
+                        <div class="star-rating">
+                            <input type="radio" id="rating-5" name="rating" value="5" required>
+                            <label for="rating-5">★</label>
+                            <input type="radio" id="rating-4" name="rating" value="4">
+                            <label for="rating-4">★</label>
+                            <input type="radio" id="rating-3" name="rating" value="3">
+                            <label for="rating-3">★</label>
+                            <input type="radio" id="rating-2" name="rating" value="2">
+                            <label for="rating-2">★</label>
+                            <input type="radio" id="rating-1" name="rating" value="1">
+                            <label for="rating-1">★</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="formMessage" class="form-message"></div>
+                <button type="submit" class="btn btn-submit">Submit Feedback</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>About This System</h2>
+            <p>Our feedback collection system is designed to gather valuable insights from users to continuously improve our services. We take all feedback seriously and use it to enhance your experience.</p>
+            <p>Thank you for taking the time to share your thoughts with us!</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Feedback Collection System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('feedbackForm');
+            const formMessage = document.getElementById('formMessage');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic form validation
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const category = document.getElementById('category').value;
+                const message = document.getElementById('message').value;
+                const rating = document.querySelector('input[name="rating"]:checked');
+                
+                if (!name || !email || !category || !message || !rating) {
+                    formMessage.textContent = 'Please fill in all required fields';
+                    formMessage.className = 'form-message error';
+                    return;
+                }
+                
+                // Email validation
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    formMessage.textContent = 'Please enter a valid email address';
+                    formMessage.className = 'form-message error';
+                    return;
+                }
+                
+                // Simulate form submission
+                formMessage.textContent = 'Submitting your feedback...';
+                formMessage.className = 'form-message info';
+                
+                // Simulate API call with timeout
+                setTimeout(() => {
+                    // Success message
+                    formMessage.textContent = 'Thank you for your feedback!';
+                    formMessage.className = 'form-message success';
+                    
+                    // Reset form
+                    form.reset();
+                    
+                    // Scroll to message
+                    formMessage.scrollIntoView({ behavior: 'smooth' });
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
